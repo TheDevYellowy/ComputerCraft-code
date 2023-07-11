@@ -17,15 +17,27 @@ local facing = 'south'
 local currentTool = 'pickaxe'
 
 -- rednet
-local rednetChannel = 31 -- change this to the channel on your pc's end
+print('What is the monitor channel? ')
+local rednetChannel = tonumber(read()) -- change this to the channel on your pc's end
 local sSide = 'right'
 rednet.open(sSide)
 local percent = '0'
 
+clear()
+
 -- Configuration
-local sizeX = 16
-local sizeZ = 16
-local toYLevel = 0
+print('Remember that the chunks have to be loaded')
+term.setCursorPos(1, 2)
+print('how far in the x direction do you want to go >')
+local sizeX = tonumber(read())
+term.setCursorPos(1, 3)
+print('how far in the z direction do you want to go >')
+local sizeZ = tonumber(read())
+term.setCursorPos(1, 4)
+print('to what y level do you want to mine >')
+local toYLevel = tonumber(read())
+
+clear()
 
 -- Start of functions (Don't edit these unless you know what you are doing)
 local function equals(a, b) -- this function sucks ass, there has to be a better way to do this but it probably won't change
@@ -246,6 +258,8 @@ local function start()
         totalBlocks = (startLoc[2] - toYLevel) * (sizeX * sizeZ)
     end
     deposit()
+
+    print(('Starting to mine a total of %s blocks'):format(totalBlocks))
 
     local rednetData = {
         per = 0,

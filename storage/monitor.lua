@@ -4,7 +4,6 @@ term.setCursorPos(1, 1)
 local locations = {}
 local connections = {}
 
-local ids = {}
 local labels = {}
 local labelsToIds = {}
 
@@ -26,13 +25,10 @@ local sSide = 'top'
 rednet.open(sSide)
 
 print(('Computer is running on channel %d'):format(os.getComputerID()))
-rednet.broadcast({
-    e = 0
-})
 
 while true do
     local id, msg = rednet.receive()
-    if tonumber(id) == os.getComputerID() then return end
+    print(id)
     local e = tonumber(msg.e)
     if e == 0 then
         labels[id] = msg.label
@@ -41,5 +37,7 @@ while true do
         connections[id] = true
         locations[id] = msg.loc
         data[id] = msg
+        term.setCursorPos(term.getCursorPos() + 1, 1)
+        print(('Got data from %s (%d) it\'s now connected'):format(msg.label, id))
     end
 end

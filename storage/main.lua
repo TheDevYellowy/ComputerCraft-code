@@ -9,6 +9,10 @@ peripheral.find('modem', rednet.open)
 print("What is the main computers id?")
 local compID = tonumber(read())
 
+local op = {
+    info = 7
+}
+
 local name = os.getComputerLabel()
 local names = { 'Holly', 'Vincent', 'Holly', 'Daxton', 'Adrianna', 'Leo', 'Ellison', 'Abraham', 'Nevaeh', 'Bryson',
     'Madilynn', 'Jaziel', 'Gianna', 'Alfredo', 'Ayla', 'Cullen', 'Harleigh', 'Vihaan', 'Wynter', 'Rex', 'August', 'Avi',
@@ -123,7 +127,7 @@ rednet.send(compID, {
 while true do
     local id, msg = rednet.receive()
     local e = tonumber(msg.e)
-    if e == 7 and msg.label == name then
+    if e == op.info and msg.label == name then
         rednet.send(id, {
             label = name,
             currentFuel = fuelLevel,
